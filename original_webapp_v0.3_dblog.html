@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="jp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>回答ログ</title>
+    <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="static/css/c22_code04_style.css" />
+</head>
+
+<body>
+
+    
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <h1><a class="navbar-brand" href="#">Poké-Talk!</a></h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse fw-bold" id="navbarNav">
+                <ul class="navbar-nav ms-auto me-2 fs-3">
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="/"> <i
+                                class="bi-house"></i> </a></li>
+                    <li class="nav-item"><a class="nav-link" href="/talkroom"> <i class="bi-chat-left-text"></i> </a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="/dblogpage"> <i class="bi-journals"></i> </a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"> <i class="bi-person-circle"></i> </a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"> <i class="bi-question-circle"></i> </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container-fluid">
+    
+        {% for answer_log_data in answer_log_data_list %}
+        <div class="row p-3">
+            <div class="col-12">
+                <!-- テーブル形式で回答データを表示 -->
+                <div class="card">
+                    <div class="card-header">
+                        {{ answer_log_data["question"]|safe }}
+                        <div class="fs-6 text-muted">
+                            <i class="bi bi-clock"></i> {{ answer_log_data["date"] }}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            <i class="bi bi-chat-dots"></i>  {{ answer_log_data["character"] }}
+                        </h6>
+                        <p class="card-text">
+                            {{ answer_log_data["answer"]|safe }}
+                        </p>
+
+                        <button class="btn btn-outline-secondary btn-sm" id="like-button-{{ answer_log_data['id'] }}">👍{{ answer_log_data['like'] }}</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="fixed-bottom">
+        <div style="background-color: #ffffffee; box-shadow: inset #ffffff00;" class="pt-1 pb-3">
+            <p class="text-center m-0">&copy; 2023 Mitrarashi3776 All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+
+        // 「いいね」ボタンのelementを取得
+        document.getElementById("like-button-{{ answer_log_data['id'] }}").
+            addEventListener("click", ev => {
+
+                // 「いいね」ボタンを無効化
+                document.getElementById("like-button-{{ answer_log_data['id'] }}").disabled = true;
+
+                // バックエンドに「いいね」のカウントアップをリクエスト
+                fetch("postlike", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json; charset=utf-8" },
+                    body: JSON.stringify({ "id": "{{ answer_log_data['id'] }}" })
+                })
+                    .then(response => {
+                        // カウントアップ後の「いいね」を取得
+                        return response.json();
+                    })
+                    .then(data => {
+                        // カウントアップ後の「いいね」を「いいね」ボタンに反映
+                        document.getElementById("like-button-{{ answer_log_data['id'] }}").innerHTML = "👍" + data["result"];
+                    }).finally(() => {
+                        console.log("request complete!");
+                    });
+            });
+    </script>
+    {% endfor %}
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+
+</html>
