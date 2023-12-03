@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poké-Talk!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+</head>
+
+<body>
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <h1><a class="navbar-brand" href="#">Poké-Talk!</a></h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse fw-bold" id="navbarNav">
+                <ul class="navbar-nav ms-auto me-2 fs-3">
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="/"> <i
+                                class="bi-house"></i> </a></li>
+                    <li class="nav-item"><a class="nav-link" href="/talkroom"> <i class="bi-chat-left-text"></i> </a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="/dblogpage"> <i class="bi-journals"></i> </a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"> <i class="bi-person-circle"></i> </a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"> <i class="bi-question-circle"></i> </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-4">
+                    <div class="container">
+                        <div class="row text-center align-items-center">
+                            <div class="col-5 col-lg-12"><img
+                                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/25.png"
+                                    width="auto" class="img-fluid" id="chara_img_selected"></div>
+                            <div class="col-7 col-lg-12">
+                                <div class="fs-2 fw-normal my-3" id="chara_name_selected">Pokemon</div>
+                                <div class="m-1" id="chara_description_selected">はなつみポケモン / みどりいろ</div>
+                                <div class="m-1" id="chara_flavor_selected">せつめい</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-8">
+                    <div class="container my-5 ">
+                        <div class="row p-2">
+
+                            <div class="col-1">
+                                <div class="pt-2" style="display: block; width: 150%;"><img
+                                        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
+                                        style="width: 100%; height: 60px; object-position: 50% 50%; object-fit: cover;"
+                                        class="img-fluid" id="chara_img_ico"></div>
+                            </div>
+                            <div class="col-9">
+                                <div class="card my-2" style="border-radius: 10px;">
+                                    <div class="card-body" id="question_card">
+                                        きみの　しつもん
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2"></div>
+
+                        </div>
+
+                        <div class="row p-2">
+                            <div class="col-2"></div>
+                            <div class="col-9">
+                                <div class="card my-2" style="border-radius: 10px;">
+                                    <div class="card-body" id="answer_card">
+                                        ポケモン　からの　へんじ
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-1 pt-4">
+                                <i class="bi-emoji-smile fs-4"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="height: 100px; display: block;"></div>
+    </section>
+
+    <footer class="fixed-bottom">
+        <div style="background-color: #ffffffee; box-shadow: inset #ffffff00;" class="pt-1 pb-3">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-0 col-lg-4 "></div>
+                    <div class="col-11 col-lg-7 text-end p-3">
+                        <textarea name="question_sentence" id="question_field" class="form-control px-4 py-3" rows="1"
+                            placeholder="しつもんを　かいて　ポケモンに　しつもんしよう！" required
+                            style="resize: none; border-radius: 10px;"></textarea>
+                    </div>
+                    <div class="col-1" id="send_btn">
+                        <button type="button" class="btn btn-primary" style="border-radius: 50%;"><i
+                                class="bi-send fs-3" id="send_icon"></i></button>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center m-0">&copy; 2023 Mitrarashi3776 All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/original_webapp_v0.3_talkroom.js') }}" charset="utf-8"></script>
+</body>
+
+</html>
